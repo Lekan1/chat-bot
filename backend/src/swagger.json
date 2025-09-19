@@ -1,0 +1,87 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Chat API",
+      "version": "1.0.0",
+      "description": "API documentation for the Chat Application"
+    },
+    "servers": [
+      { "url": "http://localhost:4000/api" }
+    ],
+    "paths": {
+      "/conversations": {
+        "get": {
+          "summary": "Get all conversations",
+          "responses": {
+            "200": {
+              "description": "List of conversations"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new conversation",
+          "responses": {
+            "201": {
+              "description": "Conversation created"
+            }
+          }
+        }
+      },
+      "/conversations/{conversationId}": {
+        "delete": {
+          "summary": "Delete a conversation",
+          "parameters": [
+            {
+              "name": "conversationId",
+              "in": "path",
+              "required": true,
+              "schema": { "type": "integer" }
+            }
+          ],
+          "responses": {
+            "204": { "description": "Conversation deleted" }
+          }
+        }
+      },
+      "/conversations/{conversationId}/messages": {
+        "get": {
+          "summary": "Get messages for a conversation",
+          "parameters": [
+            {
+              "name": "conversationId",
+              "in": "path",
+              "required": true,
+              "schema": { "type": "integer" }
+            }
+          ],
+          "responses": {
+            "200": { "description": "List of messages" }
+          }
+        }
+      },
+      "/messages": {
+        "post": {
+          "summary": "Send a new message",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "conversationId": { "type": "integer" },
+                    "messageText": { "type": "string" }
+                  },
+                  "required": ["conversationId", "messageText"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": { "description": "Message sent" }
+          }
+        }
+      }
+    }
+  }
+  
